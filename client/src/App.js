@@ -39,18 +39,3 @@ const App = () => {
 
 export default App;
 
-// import React from 'react';
-// import Button from '@mui/material/Button';
-// import useStyles from './styles';
-
-// const App = () => {
-//   const classes = useStyles();
-
-//   return (
-//     <Button className={classes.button} variant="contained" color="primary">
-//       Hello
-//     </Button>
-//   );
-// };
-
-// export default App;
