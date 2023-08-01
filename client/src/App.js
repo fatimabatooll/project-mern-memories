@@ -7,7 +7,7 @@ import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 import { getPosts } from './actions/posts'
 
-// test commitfsddsfsfdsffd
+
 const App = () => {
   const classes = useStyles(); 
   const dispatch = useDispatch();
