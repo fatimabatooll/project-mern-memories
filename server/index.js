@@ -8,9 +8,11 @@ import postRoutes from './routes/posts.js'
 const app = express();
 app.use(cors({ origin: '*' }));
 
-app.use('/posts', postRoutes);
+
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+
+app.use('/posts', postRoutes);
 
 const CONNECTION_URL = 'mongodb+srv://mernmemories:mernmemories123@cluster0.gmbii6b.mongodb.net/?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 4000;
