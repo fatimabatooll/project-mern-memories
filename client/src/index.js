@@ -10,7 +10,15 @@ import { applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 const theme = createTheme({
-
+  // palette: {
+  //   primary: {
+  //     main: '#6200ea', 
+  //   },
+  //   secondary: {
+  //     main: '#f50057', 
+  //   },
+  //   // Add more custom colors if needed
+  // },
 });
 
 const store = configureStore({

@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
     mainContainer: {
         display: 'flex',
         alignItems: 'center',
+        borderRadius: 15,
       },
       smMargin: {
         margin: theme.spacing(1),

@@ -21,7 +21,10 @@ const Post = ({ post, setCurrentId }) => {
 
   }, [post.createdAt])
   return (
+    <div className={classes.borderRadius}>
+
       <Card className={classes.card}>
+
         <CardMedia className={classes.media} image={post.selectedFile} title={post.title}>
           <div className={classes.overlay}>
             <Typography variant='h6'>{post.creator}</Typography>
@@ -43,17 +46,19 @@ const Post = ({ post, setCurrentId }) => {
             <Typography  variant='body2' color="textSecondary" component='p'>{post.title}</Typography>
           </CardContent>
           <CardActions className={classes.cardActions}>
-            <Button size='small' color='primary' onClick={() => dispatch(likePost(post._id))}>
+            <Button size='small' color='secondary' onClick={() => dispatch(likePost(post._id))}>
              <ThumbUpAltIcon fontSize='small'/>
             &nbsp; Like &nbsp; 
              {post.likeCount}
             </Button>
-            <Button size='small' color='primary' onClick={() => dispatch(deletePost(post._id))}>
+            <Button size='small' color='secondary' onClick={() => dispatch(deletePost(post._id))}>
               <DeleteIcon/>
               delete
             </Button>
           </CardActions>
       </Card>
+      </div>
+
   )
 }
 
