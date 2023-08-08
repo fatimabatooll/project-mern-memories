@@ -1,4 +1,4 @@
-import { AUTH } from '../constants/actionTypes';
+import { AUTH, LOGOUT } from '../constants/actionTypes';
 
 const initialState = {
     result: null,
@@ -13,8 +13,15 @@ const initialState = {
           result: action.payload.result,
           token: action.payload.token,
         };
-        console.log('New State:', newState);
+        console.log('data:', newState);
+        localStorage.setItem('profile', JSON.stringify(newState))
         return newState;
+
+        case LOGOUT:
+            localStorage.removeItem('profile')
+          
+            return initialState;
+
       default:
         return state;
     }

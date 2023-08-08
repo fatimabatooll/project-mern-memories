@@ -9,14 +9,16 @@ import GoogleIcon from '@mui/icons-material/Google';
 import jwt_decode from 'jwt-decode'
 import { useDispatch } from 'react-redux';
 import storeAuthData from '../../actions/auth';
+import { useNavigate } from 'react-router-dom';
+
 
 const Auth = () => {
   const classes = useStyles();
   const [isSignup, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const dispatch = useDispatch(); // Create a dispatch function
-
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate();
   const handleSubmit = () => {};
 
   const handleChange = () => {};
@@ -31,6 +33,7 @@ const Auth = () => {
     try {
       // Dispatch the action to store authentication data and token in Redux state
       dispatch(storeAuthData(result, token));
+      navigate('/')
     } catch (error) {
     }
   };
@@ -75,8 +78,22 @@ const Auth = () => {
             {isSignup ? 'Sign Up' : 'Sign In'}
           </Button>
 
-          <GoogleOAuthProvider clientId='821857814657-qntb520u7l4ru0b959hbu0jeql0uu4ba.apps.googleusercontent.com'>
-            <GoogleLogin onSuccess={googleSuccess} onFailure={googleFailure} />
+          <GoogleOAuthProvider  clientId='821857814657-qntb520u7l4ru0b959hbu0jeql0uu4ba.apps.googleusercontent.com'>
+          <GoogleLogin
+              render={(renderProps) => (
+                <Button
+                  type="button"
+                  className={classes.googleButton}
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  sign in with google
+                </Button>
+              )}
+              onSuccess={googleSuccess}
+              onFailure={googleFailure}
+              cookiePolicy="single_host_origin"
+            />
           </GoogleOAuthProvider>
 
           <Grid container justify='flex-end'>
