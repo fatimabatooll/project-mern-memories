@@ -1,25 +1,29 @@
+
 import { AUTH, LOGOUT } from '../constants/actionTypes';
 
 const initialState = {
-    result: null,
-    token: null,
+  userInfo: null,
+  access_token: null,
   };
   
   const authReducer = (state = initialState, action) => {
-    switch (action.type) {
+    switch (action?.type) {
       case AUTH:
         const newState = {
           ...state,
-          result: action.payload.result,
-          token: action.payload.token,
+          userInfo: action?.payload?.userInfo,
+          access_token: action?.payload?.access_token,
         };
         console.log('data:', newState);
-        localStorage.setItem('profile', JSON.stringify(newState))
+        if(newState!=null){
+          localStorage.setItem('profile', JSON.stringify(newState))
+        }else{
+          console.log("data hi nhin aya");
+        }
         return newState;
 
         case LOGOUT:
             localStorage.removeItem('profile')
-          
             return initialState;
 
       default:
@@ -28,4 +32,3 @@ const initialState = {
   };
   
   export default authReducer;
-  

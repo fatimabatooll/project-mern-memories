@@ -3,46 +3,39 @@ import React, { useState } from 'react'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './Input';
 import useStyles from './styles'; 
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
-import GoogleIcon from '@mui/icons-material/Google';
-import jwt_decode from 'jwt-decode'
 import { useDispatch } from 'react-redux';
-import storeAuthData from '../../actions/auth';
 import { useNavigate } from 'react-router-dom';
+import GoogleButton from './GoogleButton';
+import { Signin, Signup } from '../../actions/auth';
 
 
+
+const initialState = {firstName:'', lastName:'', email:'', password:'', confirmPassword:''}
 const Auth = () => {
   const classes = useStyles();
   const [isSignup, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState(initialState)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const dispatch = useDispatch(); 
-  const navigate = useNavigate();
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('data',formData)
 
-  const handleChange = () => {};
-
-  const googleSuccess = async (res) => {
-    // console.log(res);
-    const result = jwt_decode(res?.credential);
-    // console.log(result);
-    const token = res?.credential;
-    // console.log(token);
-
-    try {
-      // Dispatch the action to store authentication data and token in Redux state
-      dispatch(storeAuthData(result, token));
-      navigate('/')
-    } catch (error) {
+    if (isSignup) {
+      dispatch(Signup(formData, navigate))
+    } else {
+      dispatch(Signin(formData, navigate))
     }
   };
 
-  const googleFailure = (error) => {
-    console.log(error);
-    console.log('Google Sign In was unsuccessful. Try Again Later');
+  const handleChange = (e) => {
+   setFormData({ ...formData, [e.target.name]: e.target.value})
   };
-
+  
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
   const switchMode = () => {
     setIsSignUp((prevIsSignup) => !prevIsSignup);
@@ -79,21 +72,9 @@ const Auth = () => {
           </Button>
 
           <GoogleOAuthProvider  clientId='821857814657-qntb520u7l4ru0b959hbu0jeql0uu4ba.apps.googleusercontent.com'>
-          <GoogleLogin
-              render={(renderProps) => (
-                <Button
-                  type="button"
-                  className={classes.googleButton}
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                >
-                  sign in with google
-                </Button>
-              )}
-              onSuccess={googleSuccess}
-              onFailure={googleFailure}
-              cookiePolicy="single_host_origin"
-            />
+        
+            <GoogleButton/>
+
           </GoogleOAuthProvider>
 
           <Grid container justify='flex-end'>
